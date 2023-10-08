@@ -1,0 +1,17 @@
+version: "3.1"
+
+services:
+  development:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: voiads_frontend_image
+    container_name: voiads_frontend_container
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env
+      - ./.env.example
+    environment:
+        VITE_PORT: "3000"
+        VITE_BASE_URL: "http://103.74.119.75:8001/api/v1/"

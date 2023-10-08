@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Apply scrollbar */
+::-webkit-scrollbar-track {
+  background: #fafafa;
+  border: solid 1px #ededed;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #c2c2c2;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #868686;
+}
