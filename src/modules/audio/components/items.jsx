@@ -2,12 +2,9 @@ import { noop } from "lodash";
 import GroupButtonAction from "../../../components/Button/GroupButtonAction";
 
 export const initAudioValues = {
-  audio_name: "",
-  durations: "",
-  link: "",
-  type: "",
-  image_id: "",
-  file: null,
+  car_id: "",
+  name: "",
+  model: ""
 };
 
 export const columns = ({
@@ -15,43 +12,21 @@ export const columns = ({
   handleOpenDelete = noop,
 }) => [
   {
+    title: "ID",
+    dataIndex: "car_id",
+    key: "car_id",
+    sorter: (a, b) => a.car_id - b.car_id,
+  },
+  {
     title: "Name",
-    dataIndex: "audio_name",
-    key: "audio_name",
-    sorter: (a, b) => a.audio_name.length - b.audio_name.length,
+    dataIndex: "name",
+    key: "name",
   },
   {
-    title: "Durations",
-    dataIndex: "durations",
-    key: "durations",
-    sorter: (a, b) => parseInt(a.durations) - parseInt(b.durations),
+    title: "Model",
+    dataIndex: "model",
+    key: "model",
   },
-
-  {
-    title: "Updated at",
-    dataIndex: "updated_at",
-    key: "updated_at",
-
-    sorter: (a, b) =>
-      new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime(),
-  },
-  {
-    title: "Created by",
-    dataIndex: "created_by",
-    key: "created_by",
-    filters: [
-      {
-        text: "admin",
-        value: "admin",
-      },
-      {
-        text: "operator",
-        value: "operator",
-      },
-    ],
-    onFilter: (value, record) => record.created_by.indexOf(value) === 0,
-  },
-
   {
     title: "Actions",
     key: "action",
@@ -59,8 +34,8 @@ export const columns = ({
     width: 100,
     render: (_text, record) => (
       <GroupButtonAction
-        onEdit={() => handleOpenDetail(record.audio_id)}
-        onDelete={() => handleOpenDelete(record.audio_id)}
+        onEdit={() => handleOpenDetail(record.car_id)}
+        onDelete={() => handleOpenDelete(record.car_id)}
       />
     ),
   },

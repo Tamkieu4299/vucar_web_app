@@ -43,7 +43,7 @@ function AudioPage() {
     setModalDetailId(null);
     form.resetFields();
   }, [form]);
-  const { data: listAudio, isLoading, refetch } = useFetchAllAudio(param, {});
+  const { data: listAudio, isLoading, refetch } = useFetchAllAudio({});
 
   const { isLoading: isFetchAudio } = useFetchAudio(modalDetailId, {
     enabled: Boolean(modalDetailId && modalDetailId !== -1),
@@ -85,22 +85,8 @@ function AudioPage() {
     const userName = user?.name;
 
     if (isNew) {
-      const { file, ...payload } = value;
-
-      //handle form data
-      const formData = new FormData();
-      formData.append("file", file.file.originFileObj);
-      formData.append(
-        "audio_data",
-        JSON.stringify({ ...payload, created_by: userName })
-      );
-      await createAudio(formData);
-    }
-    if (isEdit) {
-      await updateAudio({
-        id: modalDetailId,
-        body: { ...value, created_by: userName },
-      });
+      const payload = { name: value.name, model: value.model };
+      await createAudio({ body: payload });
     }
   };
   const onSearch = () => {
@@ -109,17 +95,14 @@ function AudioPage() {
   return (
     <>
       <Row>
-        <Col span={12}>
-          <SearchDriver onSearch={onSearch} />
-        </Col>
-        <Col span={12} className="text-right">
-          {editPermission && (
+        <Col span={1} className="text-right pb-4">
+          {
             <Button className="bg-primary" onClick={() => handleOpenDetail()}>
               <Typography className="text-white">
                 {TEXT.button.addNew}
               </Typography>
             </Button>
-          )}
+          }
         </Col>
       </Row>
 
@@ -127,10 +110,9 @@ function AudioPage() {
         loading={isLoading}
         columns={columns({
           handleOpenDetail,
-          handleOpenDelete: openModalDelete,
         })}
         dataSource={listAudio}
-        rowKey="audio_id"
+        rowKey="id"
         // rowSelection={rowSelection}
       />
       <ModalContainer
@@ -141,7 +123,7 @@ function AudioPage() {
         confirmLoading={isCreate || isUpdate}
         okText={TEXT.button.ok}
         onCancel={onCancel}
-        okButtonProps={{ disabled: !editPermission, className: "bg-primary" }}
+        // okButtonProps={{ disabled: !editPermission, className: "bg-primary" }}
         cancelText={TEXT.button.cancel}
         width={600}
       >

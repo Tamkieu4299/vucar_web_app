@@ -36,7 +36,7 @@ function DriverPage() {
     refetch,
   } = useFetchAllDriver(param, {});
 
-  const { data: listPlaylist } = useFetchAllPlaylist();
+  // const { data: listPlaylist } = useFetchAllPlaylist();
 
   const { isLoading: loadingDriver } = useFetchDriver(modalDetailId, {
     enabled: Boolean(modalDetailId),
@@ -100,7 +100,7 @@ function DriverPage() {
         })}
         rowKey="user_id"
       />
-      <FormProvider>
+      {/* <FormProvider>
         <ModalContainer
           title={TEXT.common.edit("Driver")}
           open={!!modalDetailId}
@@ -116,10 +116,9 @@ function DriverPage() {
             form={form}
             onSubmit={onSubmit}
             loading={loadingDriver}
-            options={listPlaylist}
           />
         </ModalContainer>
-      </FormProvider>
+      </FormProvider> */}
     </>
   );
 }

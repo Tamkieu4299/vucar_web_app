@@ -3,10 +3,8 @@ import request from "../../../utils/request";
 
 function useCreateAudio(options) {
   return useMutation(
-    (data) =>
-      request.post("audio/create", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      }),
+    ({body}) =>
+      request.post("car/create", body),
     options
   );
 }

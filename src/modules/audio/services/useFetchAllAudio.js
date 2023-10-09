@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
 import request from "../../../utils/request";
 
-function useFetchAllAudio(param = "", options) {
+function useFetchAllAudio(options) {
   return useQuery(
-    ["audios"],
-    () => request.get(`audio/search/${param}`),
+    ["inspectations"],
+    () => request.get("car/"),
     options
   );
 }

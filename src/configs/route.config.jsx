@@ -4,6 +4,7 @@ import {
   AudioOutlined,
   UnorderedListOutlined,
   UserOutlined,
+  CarOutlined
 } from "@ant-design/icons";
 import { Suspense, lazy } from "react";
 import {
@@ -54,24 +55,24 @@ const loginPage = {
 const homePage = {
   path: "/",
   component: lazy(() => delayRoute()(import("../modules/home/features/home"))),
-  title: LABEL.dashBoard,
-  icon: <HomeOutlined />,
+  title: "Inspectations",
+  icon: <UnorderedListOutlined />,
 };
 const driverPage = {
   path: "/driver-management",
   component: lazy(() =>
     delayRoute()(import("../modules/driver/features/driverPage"))
   ),
-  title: TEXT.driver.driver,
+  title: "Users",
   icon: <UserOutlined />,
 };
 const audioPage = {
-  path: "/audio-management",
+  path: "/car-management",
   component: lazy(() =>
     delayRoute()(import("../modules/audio/features/audio"))
   ),
-  title: LABEL.audio,
-  icon: <AudioOutlined />,
+  title: "Cars",
+  icon: <CarOutlined />,
 };
 const playlistPage = {
   path: "/playlist-management",
@@ -83,7 +84,7 @@ const playlistPage = {
 };
 
 export const publicRoutesData = [loginPage];
-export const privateRouteData = [homePage, audioPage, playlistPage, driverPage];
+export const privateRouteData = [homePage, audioPage, driverPage];
 
 const publicRoutes = () => {
   return publicRoutesData.map((route, index) => {

@@ -19,9 +19,33 @@ function ModalDetailAudio({ form, onSubmit, isNew }) {
       }}
       initialValues={initAudioValues}
     >
+      {!isNew && <Form.Item
+        name="car_id"
+        label="ID"
+        rules={[
+          {
+            required: true,
+            message: required.is_required,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>}
       <Form.Item
-        name="audio_name"
-        label={label.audio_name}
+        name="name"
+        label="Name"
+        rules={[
+          {
+            required: true,
+            message: required.is_required,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="model"
+        label="Model"
         rules={[
           {
             required: true,
@@ -32,32 +56,6 @@ function ModalDetailAudio({ form, onSubmit, isNew }) {
         <Input />
       </Form.Item>
 
-      {isNew && (
-        <Form.Item
-          name="file"
-          label={label.file}
-          rules={[
-            {
-              required: true,
-              message: required.is_required,
-            },
-          ]}
-        >
-          <Upload
-            name="file"
-            customRequest={(options) => {
-              options.onSuccess("Ok");
-            }}
-            multiple={true}
-            showUploadList={true}
-            beforeUpload={checkFile}
-            onChange={form.onChange}
-            maxCount={1}
-          >
-            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-          </Upload>
-        </Form.Item>
-      )}
     </Form>
   );
 }
