@@ -1,7 +1,7 @@
 import { Button, Col } from "antd";
 import TableInQuery from "../../components/TableInquery";
 import { columns } from "../../components/items";
-import useFetchAllInQuery from "../../services/useFetchAllInQuery";
+import useFetchAllInspectation from "../../services/useFetchAllInspectation";
 import SearchDriver from "../../../driver/features/components/Search";
 import { useSearchParams } from "react-router-dom";
 import useUpdateStatus from "../../services/useUpdateStatus";
@@ -12,12 +12,11 @@ import ModalContainer from "../../../../components/Modal/containers/ModalContain
 import { useCallback, useMemo, useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import ModalInquiryDetail from "../../components/ModalDetail";
-import useFetchInquiry from "../../services/useFetchInquiry";
+import useFetchInspectation from "../../services/useFetchInspectation";
 
 function HomePage() {
   const [form] = useForm();
   const [searchParams] = useSearchParams();
-  const inQueryParam = searchParams.get("name") ?? "";
   const [modalDetailId, setModalDetailId] = useState(null);
 
   const handleOpenDetail = useCallback((id) => setModalDetailId(id), []);
@@ -35,7 +34,7 @@ function HomePage() {
     data: listInQuery,
     isLoading,
     refetch,
-  } = useFetchAllInQuery(inQueryParam, {});
+  } = useFetchAllInspectation({});
 
   const { mutateAsync: updateStatus } = useUpdateStatus({
     onSuccess: () => {
@@ -44,10 +43,10 @@ function HomePage() {
     },
   });
 
-  const { loading } = useFetchInquiry(modalDetailId, {
+  const { loading } = useFetchInspectation(modalDetailId, {
     enabled: Boolean(modalDetailId),
     onSuccess: (rs) => {
-      form.setFieldsValue(rs);
+      form.setFieldsValue(rs.stats);
     },
   });
 
@@ -66,9 +65,9 @@ function HomePage() {
 
   return (
     <>
-      <Col span={24}>
+      {/* <Col span={24}>
         <SearchDriver onSearch={onSearch} />
-      </Col>
+      </Col> */}
 
       <TableInQuery
         columns={columns({ handleUpdateStatus, handleOpenDetail })}
@@ -83,8 +82,9 @@ function HomePage() {
           loading={loading}
           width={800}
           footer={footer}
+          onCancel={onCancel}
         >
-          <ModalInquiryDetail form={form} />
+          { <ModalInquiryDetail form={form} />}
         </ModalContainer>
       </FormProvider>
     </>

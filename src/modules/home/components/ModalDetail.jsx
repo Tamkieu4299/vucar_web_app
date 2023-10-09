@@ -1,48 +1,49 @@
 import { Form, Input } from "antd";
 import PropTypes from "prop-types";
 import { TEXT } from "../../../localization/en";
+import useFetchCriteriaForm from "../services/useFetchCriteriaForm";
+import useFetchInspectation from "../services/useFetchInspectation";
 import SelectStatus from "./SelectStatus";
-
+import { useState } from "react";
 function ModalInquiryDetail({ form, onSubmit }) {
-  const label = TEXT.inquiry;
+  const [criterias, setCriterias] = useState({});
+
+  const { data: listCriterias, isLoading, refetch } = useFetchCriteriaForm({});
+
+  const CustomObjectDisplay = ({ fieldName }) => {
+    const data = form.getFieldValue(fieldName);
+    return data === undefined ? (
+      <></>
+    ) : (
+        <Form.Item name={fieldName} label={fieldName} key={fieldName} className="w-full flex-row">
+          <div className="">
+            <SelectStatus status={String(data["status"])}/>
+            {!data["status"] && <Input placeholder={data["note"]}/>}
+          </div>
+        </Form.Item>
+    );
+  };
 
   return (
     <Form
       form={form}
       labelCol={{ span: 8 }}
       style={{
-        maxWidth: 600,
+        maxWidth: 800,
       }}
       onFinish={onSubmit}
       autoComplete="off"
     >
-      <Form.Item name="driver_name" label={label.name}>
-        <Input disabled />
-      </Form.Item>
-      <Form.Item name="driver_phone" label={label.phone}>
-        <Input disabled />
-      </Form.Item>
-      <Form.Item name="bank_account" label={label.bank_account}>
-        <Input disabled />
-      </Form.Item>
-      <Form.Item name="bank_name" label={label.bank_name}>
-        <Input disabled />
-      </Form.Item>
-      <Form.Item name="point" label={label.point}>
-        <Input disabled />
-      </Form.Item>
-      <Form.Item name="description" label={label.description}>
-        <Input disabled />
-      </Form.Item>
-      <Form.Item name="status" label={label.status}>
-        <SelectStatus status={form.getFieldValue("status")} disabled />
-      </Form.Item>
+      {!isLoading &&
+        Object.keys(listCriterias).map((fieldName) => (
+            <CustomObjectDisplay fieldName={fieldName} />
+        ))}
     </Form>
   );
 }
 ModalInquiryDetail.propTypes = {
   form: PropTypes.any.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired,
+  // options: PropTypes.array.isRequired,
 };
 export default ModalInquiryDetail;

@@ -10,42 +10,38 @@ export const initAudioValues = {
 };
 
 export const itemStatus = {
-  todo: {
+  false: {
     color: "rgb(155, 155, 155)",
-    label: TEXT.status.todo,
+    label: "False",
   },
-  inprogress: {
-    color: "rgb(46, 124, 209)",
-    label: TEXT.status.inprogress,
-  },
-  done: {
+  true: {
     color: "rgb(45, 153, 100)",
-    label: TEXT.status.done,
+    label: "True",
   },
 };
 
 export const selectOptions = [
   {
-    key: "0",
+    key: "true",
     label: (
       <CustomButtonStatus
-        color={itemStatus.todo.color}
-        label={itemStatus.todo.label}
+        color={itemStatus.true.color}
+        label={itemStatus.true.label}
       />
     ),
-    text: itemStatus.todo.label,
-    color: itemStatus.todo.color,
+    text: itemStatus.true.label,
+    color: itemStatus.true.color,
   },
   {
-    key: "1",
+    key: "false",
     label: (
       <CustomButtonStatus
-        color={itemStatus.done.color}
-        label={itemStatus.done.label}
+        color={itemStatus.false.color}
+        label={itemStatus.false.label}
       />
     ),
-    text: itemStatus.done.label,
-    color: itemStatus.done.color,
+    text: itemStatus.false.label,
+    color: itemStatus.false.color,
   },
 ];
 
@@ -54,63 +50,31 @@ export const columns = ({
   handleOpenDetail = noop,
 }) => [
   {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
-    sorter: (a, b) => a.title.length - b.title.length,
+    title: "ID",
+    dataIndex: "inspectation_id",
+    key: "inspectation_id",
+    sorter: (a, b) => a.inspectation_id - b.inspectation_id,
   },
   {
-    title: "Description",
-    dataIndex: "description",
-    key: "description",
+    title: "User",
+    dataIndex: "user_id",
+    key: "user_id",
   },
   {
-    title: "Create by",
-    dataIndex: "created_by",
-    key: "created_by",
+    title: "Car",
+    dataIndex: "car_id",
+    key: "car_id",
   },
   {
-    title: "Updated at",
-    dataIndex: "updated_at",
-    key: "updated_at",
-    sorter: (a, b) =>
-      new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime(),
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    width: 150,
-    align: "center",
-    filters: [
-      {
-        text: "Todo",
-        value: "0",
-      },
-      {
-        text: "Done",
-        value: "1",
-      },
-    ],
-    onFilter: (value, record) => record.status.indexOf(value) === 0,
-    render: (_text, record) => (
-      <SelectStatus
-        status={record.status}
-        id={record.inquiry_id}
-        handleClick={handleUpdateStatus}
-      />
-    ),
-  },
-  {
-    title: "Actions",
+    title: "Statistics",
     key: "action",
     fixed: "right",
     align: "center",
     width: 100,
     render: (_text, record) => (
       <IconButton
-        onClick={() => handleOpenDetail(record.inquiry_id)}
-        title="Edit"
+        onClick={() => handleOpenDetail(record.inspectation_id)}
+        title="View Stats"
         icon={<EyeOutlined />}
         className="text-base text-sky-500"
       />

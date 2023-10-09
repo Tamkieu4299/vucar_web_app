@@ -17,12 +17,12 @@ function SelectStatus({ status, id, handleClick = noop, disabled = false }) {
           handleClick(id, e?.key);
         },
       }}
-      disabled={!editPermission || disabled}
+      // disabled={!editPermission || disabled}
       placement="bottom"
     >
       <CustomButtonStatus
-        color={selectOptions[status]?.color}
-        label={selectOptions[status]?.text}
+        color={selectOptions.find(s => s.key === status)?.color}
+        label={selectOptions.find(s => s.key === status)?.text}
       />
     </Dropdown>
   );
