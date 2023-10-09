@@ -84,7 +84,7 @@ function HomePage() {
           footer={footer}
           onCancel={onCancel}
         >
-          { <ModalInquiryDetail form={form} />}
+          <ModalInquiryDetail form={form} />
         </ModalContainer>
       </FormProvider>
     </>
