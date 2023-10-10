@@ -1,10 +1,10 @@
 import { Button, Form, Input, Upload } from "antd";
 import PropTypes from "prop-types";
-import { initAudioValues } from "./items";
+import { initCarValues } from "./items";
 import { TEXT } from "../../../localization/en";
 import { checkFile } from "../../../utils/util";
 import { UploadOutlined } from "@ant-design/icons";
-function ModalDetailAudio({ form, onSubmit, isNew }) {
+function ModalDetailCar({ form, onSubmit, isNew }) {
   const label = TEXT.audio;
   const required = TEXT.required;
   return (
@@ -17,7 +17,7 @@ function ModalDetailAudio({ form, onSubmit, isNew }) {
       style={{
         maxWidth: 600,
       }}
-      initialValues={initAudioValues}
+      initialValues={initCarValues}
     >
       {!isNew && <Form.Item
         name="car_id"
@@ -59,10 +59,10 @@ function ModalDetailAudio({ form, onSubmit, isNew }) {
     </Form>
   );
 }
-ModalDetailAudio.propTypes = {
+ModalDetailCar.propTypes = {
   form: PropTypes.any,
   onSubmit: PropTypes.func,
   isNew: PropTypes.bool,
 };
 
-export default ModalDetailAudio;
+export default ModalDetailCar;

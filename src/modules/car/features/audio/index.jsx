@@ -3,23 +3,21 @@ import { useForm } from "antd/es/form/Form";
 import { useCallback, useMemo, useState } from "react";
 import useDetailActionType from "../../../../hooks/useDetailActionType";
 import { TEXT } from "../../../../localization/en";
-import ModalDetailAudio from "../../components/ModalDetail";
+import ModalDetailCar from "../../components/ModalDetail";
 import TableAudio from "../../components/TableAudio";
 import { columns } from "../../components/items";
-import useCreateAudio from "../../services/useCreateAudio";
+import useCreateCar from "../../services/useCreateCar";
 import { displaySuccessMessage } from "../../../../utils/request";
-import useFetchAllAudio from "../../services/useFetchAllAudio";
-import useFetchAudio from "../../services/useFetchAudio";
-import useDeleteAudio from "../../services/useDeleteAudio";
+import useFetchAllCar from "../../services/useFetchAllCar";
+import useFetchCar from "../../services/useFetchCar";
 import useModal from "../../../../hooks/useModal";
 import { useSearchParams } from "react-router-dom";
 import SearchDriver from "../../../driver/features/components/Search";
 import { Button, Col, Row, Typography } from "antd";
-import useUpdateAudio from "../../services/useUpdateAudio";
 import usePermission from "../../../../hooks/usePermission";
 import { getLocalStorage } from "../../../../utils/storage";
 
-function AudioPage() {
+function CarPage() {
   const [form] = useForm();
   const [searchParams] = useSearchParams();
   const { editPermission } = usePermission();
@@ -31,8 +29,8 @@ function AudioPage() {
 
   //Title modal
   const title = useMemo(() => {
-    if (isNew) return `${TEXT.button.addNew} ${TEXT.audio.audio}`;
-    if (isEdit) return `${TEXT.button.edit} ${TEXT.audio.audio}`;
+    if (isNew) return `Add new car`;
+    if (isEdit) return `View car`;
     return "";
   }, [isEdit, isNew]);
 
@@ -43,40 +41,20 @@ function AudioPage() {
     setModalDetailId(null);
     form.resetFields();
   }, [form]);
-  const { data: listAudio, isLoading, refetch } = useFetchAllAudio({});
+  const { data: listCar, isLoading, refetch } = useFetchAllCar({});
 
-  const { isLoading: isFetchAudio } = useFetchAudio(modalDetailId, {
+  const { isLoading: isFetchCar } = useFetchCar(modalDetailId, {
     enabled: Boolean(modalDetailId && modalDetailId !== -1),
     onSuccess: (rs) => {
       form.setFieldsValue(rs);
     },
   });
 
-  const { mutateAsync: deleteAudio } = useDeleteAudio({
-    onSuccess: () => {
-      displaySuccessMessage(TEXT.message.delete_success);
-      refetch();
-      onCloseModal();
-    },
-  });
-
-  const { openModalDelete, onCloseModal } = useModal({
-    onDeleteOk: deleteAudio,
-  });
-
-  const { mutateAsync: createAudio, isLoading: isCreate } = useCreateAudio({
+  const { mutateAsync: createCar, isLoading: isCreate } = useCreateCar({
     onSuccess: () => {
       refetch();
       onCancel();
       displaySuccessMessage(TEXT.message.create_success);
-    },
-  });
-
-  const { mutateAsync: updateAudio, isLoading: isUpdate } = useUpdateAudio({
-    onSuccess: () => {
-      refetch();
-      onCancel();
-      displaySuccessMessage(TEXT.message.update_success);
     },
   });
 
@@ -86,7 +64,7 @@ function AudioPage() {
 
     if (isNew) {
       const payload = { name: value.name, model: value.model };
-      await createAudio({ body: payload });
+      await createCar({ body: payload });
     }
   };
   const onSearch = () => {
@@ -111,26 +89,25 @@ function AudioPage() {
         columns={columns({
           handleOpenDetail,
         })}
-        dataSource={listAudio}
+        dataSource={listCar}
         rowKey="id"
-        // rowSelection={rowSelection}
       />
       <ModalContainer
         title={title}
-        loading={isFetchAudio}
+        loading={isFetchCar}
         open={!!modalDetailId}
         onOk={() => form.submit()}
-        confirmLoading={isCreate || isUpdate}
+        confirmLoading={isCreate}
         okText={TEXT.button.ok}
         onCancel={onCancel}
         // okButtonProps={{ disabled: !editPermission, className: "bg-primary" }}
         cancelText={TEXT.button.cancel}
         width={600}
       >
-        <ModalDetailAudio form={form} onSubmit={onSubmit} isNew={isNew} />
+        <ModalDetailCar form={form} onSubmit={onSubmit} isNew={isNew} />
       </ModalContainer>
     </>
   );
 }
 
-export default AudioPage;
+export default CarPage;

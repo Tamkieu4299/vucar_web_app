@@ -5,7 +5,7 @@ import { TEXT } from "../../../localization/en";
 import CustomButtonStatus from "./CustomButtomStatus";
 import SelectStatus from "./SelectStatus";
 
-export const initAudioValues = {
+export const initCarValues = {
   status: "",
 };
 

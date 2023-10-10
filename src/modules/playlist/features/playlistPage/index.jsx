@@ -8,7 +8,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import useDetailActionType from "../../../../hooks/useDetailActionType";
 import useModal from "../../../../hooks/useModal";
-import useFetchAllAudio from "../../../audio/services/useFetchAllAudio";
+import useFetchAllCar from "../../../car/services/useFetchAllCar";
 import SearchDriver from "../../../driver/features/components/Search";
 import { TablePlaylist } from "../../components";
 import ModalDetailPlaylist from "../../components/ModalDetail";
@@ -75,7 +75,7 @@ function PlaylistPage() {
 
   const audioName = Form.useWatch("search_audio", form);
 
-  const { data: listAudio, refetch: fetchAudio } = useFetchAllAudio(
+  const { data: listAudio, refetch: fetchAudio } = useFetchAllCar(
     audioName,
     {}
   );

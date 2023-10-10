@@ -1,7 +1,7 @@
 import { noop } from "lodash";
 import GroupButtonAction from "../../../components/Button/GroupButtonAction";
 
-export const initAudioValues = {
+export const initCarValues = {
   car_id: "",
   name: "",
   model: ""

@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import request from "../../../utils/request";
 
-function useFetchAllAudio(options) {
+function useFetchAllCar(options) {
   return useQuery(
     ["inspectations"],
     () => request.get("car/"),
@@ -9,4 +9,4 @@ function useFetchAllAudio(options) {
   );
 }
 
-export default useFetchAllAudio;
+export default useFetchAllCar;

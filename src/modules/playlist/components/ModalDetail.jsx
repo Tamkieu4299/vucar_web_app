@@ -2,7 +2,7 @@ import { Form, Input } from "antd";
 import PropTypes from "prop-types";
 import CustomSelect from "../../../components/Select";
 import { LABEL, TEXT } from "../../../localization/en";
-import TableAudio from "../../audio/components/TableAudio";
+import TableAudio from "../../car/components/TableAudio";
 import { audiosColumn, initialPlaylistValue } from "./items";
 import "./styles.scss";
 function ModalDetailPlaylist({

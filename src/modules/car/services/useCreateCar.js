@@ -1,11 +1,12 @@
 import { useMutation } from "react-query";
 import request from "../../../utils/request";
 
-function useUpdateAudio(options) {
+function useCreateCar(options) {
   return useMutation(
-    ({ id, body }) => request.put(`audio/update/${id}`, body),
+    ({body}) =>
+      request.post("car/create", body),
     options
   );
 }
 
-export default useUpdateAudio;
+export default useCreateCar;

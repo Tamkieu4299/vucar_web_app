@@ -69,7 +69,7 @@ const driverPage = {
 const audioPage = {
   path: "/car-management",
   component: lazy(() =>
-    delayRoute()(import("../modules/audio/features/audio"))
+    delayRoute()(import("../modules/car/features/audio"))
   ),
   title: "Cars",
   icon: <CarOutlined />,
@@ -113,7 +113,7 @@ const privateRoutes = () => {
         {...rest}
         key={`private-route-${index}`}
         path={path}
-        element={
+        element={   
           <AppLayout title={title}>
             <RequiredAuth path={"/auth/login"}>
               <Suspense fallback={<Loading />}>
