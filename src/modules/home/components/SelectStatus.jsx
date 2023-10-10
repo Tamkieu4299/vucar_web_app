@@ -17,7 +17,7 @@ function SelectStatus({ status, id, handleClick = noop, disabled = false }) {
           handleClick(id, e?.key);
         },
       }}
-      // disabled={!editPermission || disabled}
+      disabled={!editPermission}
       placement="bottom"
     >
       <CustomButtonStatus

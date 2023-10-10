@@ -66,25 +66,17 @@ const driverPage = {
   title: "Users",
   icon: <UserOutlined />,
 };
-const audioPage = {
+const carPage = {
   path: "/car-management",
   component: lazy(() =>
     delayRoute()(import("../modules/car/features/audio"))
   ),
   title: "Cars",
   icon: <CarOutlined />,
-};
-const playlistPage = {
-  path: "/playlist-management",
-  component: lazy(() =>
-    delayRoute()(import("../modules/playlist/features/playlistPage"))
-  ),
-  title: TEXT.playlist.playlist,
-  icon: <UnorderedListOutlined />,
-};
+}
 
 export const publicRoutesData = [loginPage];
-export const privateRouteData = [homePage, audioPage, driverPage];
+export const privateRouteData = [homePage, carPage, driverPage];
 
 const publicRoutes = () => {
   return publicRoutesData.map((route, index) => {

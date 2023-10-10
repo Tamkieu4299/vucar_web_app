@@ -100,7 +100,7 @@ function CarPage() {
         confirmLoading={isCreate}
         okText={TEXT.button.ok}
         onCancel={onCancel}
-        // okButtonProps={{ disabled: !editPermission, className: "bg-primary" }}
+        okButtonProps={{ disabled: !editPermission, className: "bg-primary" }}
         cancelText={TEXT.button.cancel}
         width={600}
       >

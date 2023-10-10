@@ -8,6 +8,7 @@ import useUpdateInspec from "../services/useUpdateInspec";
 import SelectStatus from "./SelectStatus";
 import { useState, useMemo } from "react";
 import { getLocalStorage } from "../../../utils/storage";
+import usePermission from "../../../hooks/usePermission";
 function ModalInquiryDetail({
   id,
   form,
@@ -20,6 +21,7 @@ function ModalInquiryDetail({
   const user = getLocalStorage("tempUser");
   const [currentStats, setCurrentStats] = useState(stats);
   const itemsPerPage = 5;
+  const { editPermission } = usePermission();
   const [currentPage, setCurrentPage] = useState(1);
   const [carId, setCarId] = useState(null);
   const start = (currentPage - 1) * itemsPerPage;
@@ -61,6 +63,7 @@ function ModalInquiryDetail({
           />
           {!data["status"] && (
             <Input
+              disabled={!editPermission} 
               placeholder={data["note"]}
               className="ml-2 w-3/4 h-1/2"
               onChange={(e) => changeJSONStatsNote(fieldName, e.target.value)}
@@ -105,6 +108,7 @@ function ModalInquiryDetail({
       {items}
       <Form.Item>
         <Button
+          disabled={!editPermission}
           onClick={() => {
             !isNew
               ? onSubmit(id, stats)
